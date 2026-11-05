@@ -1,28 +1,43 @@
-# EcoBot: Raízes do Amanhã
+<p align="center">
+  <img src="Docs/Imagens/eco.png" width="120" alt="Eco, o robô reciclador">
+</p>
 
-Jogo de plataforma 2D feito na **Unity 6** com **C#**, desenvolvido como projeto da disciplina de Game Development (UniFECAF).
+<h1 align="center">EcoBot: Raízes do Amanhã</h1>
 
-> A Floresta de Verdália está sendo sufocada pelo lixo e pela fumaça da Fábrica Cinzenta. Você controla **Eco**, um pequeno robô reciclador despertado pela última árvore da floresta. A missão dele é recuperar as Sementes Ancestrais, reciclar as criaturas de lixo e plantar a Muda Ancestral em cada região até chegar à Chaminé Final.
+<p align="center">
+  <img src="https://img.shields.io/badge/Unity-6.6-000000?logo=unity&logoColor=white" alt="Unity 6.6">
+  <img src="https://img.shields.io/badge/C%23-scripts-512BD4?logo=dotnet&logoColor=white" alt="C#">
+  <img src="https://img.shields.io/badge/plataforma-Windows-0078D6" alt="Windows">
+  <img src="https://img.shields.io/badge/arte-pixel%20art%20original-4cbb6c" alt="Pixel art original">
+  <img src="https://img.shields.io/badge/ferramentas-Python-3776AB?logo=python&logoColor=white" alt="Python">
+  <img src="https://img.shields.io/badge/status-completo-2e8c57" alt="Status: completo">
+</p>
 
-![Fase 1](Docs/Mapas/Level1_mapa.png)
+<p align="center">
+  Jogo de plataforma 2D feito na <b>Unity 6</b> com <b>C#</b>, desenvolvido como projeto da disciplina de Game Development (UniFECAF).
+</p>
+
+> 🌱 A Floresta de Verdália está sendo sufocada pelo lixo e pela fumaça da Fábrica Cinzenta. Você controla **Eco**, um pequeno robô reciclador despertado pela última árvore da floresta. A missão dele é recuperar as Sementes Ancestrais, reciclar as criaturas de lixo e plantar a Muda Ancestral em cada região até chegar à Chaminé Final.
+
+![Fase 1 em jogo](Docs/Prints/04_fase1_inicio.png)
 
 ---
 
-## Sumário
-- [Como jogar](#como-jogar)
-- [Mecânicas](#mecânicas)
-- [Fases](#fases)
-- [Como abrir e executar](#como-abrir-e-executar)
-- [Estrutura do projeto](#estrutura-do-projeto)
-- [Arquitetura do código](#arquitetura-do-código)
-- [Editor de fases em texto (ASCII)](#editor-de-fases-em-texto-ascii)
-- [Arte, áudio e créditos](#arte-áudio-e-créditos)
-- [Prints](#prints)
-- [Documentação](#documentação)
+## 📑 Sumário
+- 🎮 [Como jogar](#-como-jogar)
+- 🧩 [Mecânicas](#-mecânicas)
+- 🌎 [Fases](#-fases)
+- 🚀 [Como abrir e executar](#-como-abrir-e-executar)
+- 📁 [Estrutura do projeto](#-estrutura-do-projeto)
+- 🧠 [Arquitetura do código](#-arquitetura-do-código)
+- 📝 [Editor de fases em texto (ASCII)](#-editor-de-fases-em-texto-ascii)
+- 🎨 [Arte, áudio e créditos](#-arte-áudio-e-créditos)
+- 📸 [Prints](#-prints)
+- 📚 [Documentação](#-documentação)
 
 ---
 
-## Como jogar
+## 🎮 Como jogar
 
 | Ação | Teclado | Gamepad |
 |---|---|---|
@@ -39,20 +54,20 @@ Jogo de plataforma 2D feito na **Unity 6** com **C#**, desenvolvido como projeto
 
 | Item / objeto | Efeito |
 |---|---|
-| Semente dourada | +100 pontos (pegar todas da fase dá +1000 de bônus) |
-| Bateria | Recupera 1 de energia (se já estiver cheia, vira pontos) |
-| Folha dourada | +1 vida |
-| Estação de recarga | Checkpoint: salva o ponto de renascimento e recarrega a energia |
-| Pisar em inimigo | +200 pontos |
-| Terminar rápido | Bônus de tempo (10 pontos por segundo abaixo do tempo-alvo) |
+| 🌰 Semente dourada | +100 pontos (pegar todas da fase dá +1000 de bônus) |
+| 🔋 Bateria | Recupera 1 de energia (se já estiver cheia, vira pontos) |
+| 🍃 Folha dourada | +1 vida |
+| 🔌 Estação de recarga | Checkpoint: salva o ponto de renascimento e recarrega a energia |
+| 🦶 Pisar em inimigo | +200 pontos |
+| ⏱️ Terminar rápido | Bônus de tempo (10 pontos por segundo abaixo do tempo-alvo) |
 
 O Eco tem **3 de energia** por vida. Inimigos e espinhos tiram 1 de energia, com recuo e alguns segundos de invencibilidade. Cair num abismo ou no lodo tóxico custa uma vida inteira. Sem vidas, aparece a tela de Game Over com a opção de tentar a fase de novo.
 
 ---
 
-## Mecânicas
+## 🧩 Mecânicas
 
-**Movimento** ([PlayerController.cs](Assets/Scripts/Player/PlayerController.cs))
+**🏃 Movimento** ([PlayerController.cs](Assets/Scripts/Player/PlayerController.cs))
 - **Andar e correr** com aceleração e desaceleração (o personagem não para nem arranca de forma brusca).
 - **Pulo responsivo:**
   - *coyote time*: ainda dá para pular um instante depois de sair da borda;
@@ -64,7 +79,9 @@ O Eco tem **3 de energia** por vida. Inimigos e espinhos tiram 1 de energia, com
 - **Plataformas móveis** levam o jogador junto, e **plataformas rachadas** desabam logo depois de pisadas.
 - **Squash & stretch** (o sprite estica no pulo e achata na aterrissagem) e partículas de poeira.
 
-**Inimigos** ([Assets/Scripts/Enemies](Assets/Scripts/Enemies))
+**👾 Inimigos** ([Assets/Scripts/Enemies](Assets/Scripts/Enemies))
+
+<p align="center"><img src="Docs/Imagens/personagens.png" alt="Eco, Gosma de Lixo, Ouriço de Sucata, Drone de Fumaça e Semente"><br><sub>Eco · Gosma de Lixo · Ouriço de Sucata · Drone de Fumaça · Semente</sub></p>
 
 | Inimigo | Comportamento | Pode pisar? |
 |---|---|---|
@@ -72,15 +89,15 @@ O Eco tem **3 de energia** por vida. Inimigos e espinhos tiram 1 de energia, com
 | Ouriço de Sucata | Patrulha mais rápido e tem espinhos nas costas | **Não**, é preciso pular por cima |
 | Drone de Fumaça | Voa em vai-e-vem balançando | Sim, e serve de "trampolim" |
 
-**Feedback ao jogador**
+**✨ Feedback ao jogador**
 - **Visual:** partículas ao coletar, pisar, levar dano e terminar a fase; textos flutuantes ("+100", "+1 VIDA"); personagem piscando durante a invencibilidade; tela tremendo ao levar dano; ícones do HUD que "pulsam" quando o valor muda.
 - **Sonoro:** efeitos para pulo, aterrissagem, coleta, energia, vida extra, dano, pisão, checkpoint, plataforma desabando, fase concluída, game over e navegação nos menus. Cada fase tem uma trilha própria, além do menu e da tela final.
 
-**HUD** ([HUD.cs](Assets/Scripts/UI/HUD.cs)): vidas, células de energia, sementes da fase (coletadas/total), pontuação, tempo, nome da fase, dicas das placas e painéis de pausa, fim de fase e game over.
+**🖥️ HUD** ([HUD.cs](Assets/Scripts/UI/HUD.cs)): vidas, células de energia, sementes da fase (coletadas/total), pontuação, tempo, nome da fase, dicas das placas e painéis de pausa, fim de fase e game over.
 
 ---
 
-## Fases
+## 🌎 Fases
 
 | # | Fase | Novidades | Elementos |
 |---|---|---|---|
@@ -110,19 +127,19 @@ A dificuldade cresce porque cada fase apresenta um desafio novo em um lugar segu
 
 ---
 
-## Como abrir e executar
+## 🚀 Como abrir e executar
 
-### Jogar o executável
+### ▶️ Jogar o executável
 1. Baixe o `.zip` da entrega e extraia.
 2. Execute `EcoBot.exe` (Windows 64 bits).
 
-### Abrir o projeto na Unity
+### 🛠️ Abrir o projeto na Unity
 1. Instale o **Unity Hub** e uma versão **Unity 6 (6000.x LTS)** com o módulo *Windows Build Support*.
 2. No Unity Hub: **Add → Add project from disk** e selecione esta pasta. Se a versão for diferente, aceite abrir com a versão instalada.
 3. Com o projeto aberto, use o menu **EcoBot → 1. Gerar projeto completo**. Ele cria as animações, prefabs, tiles e as 6 cenas (menu, 4 fases e vitória).
 4. Abra `Assets/Scenes/MainMenu.unity` e aperte **Play**. Qualquer fase também pode ser testada direto: abra a cena `Level1..4` e aperte Play.
 
-### Gerar o executável
+### 📦 Gerar o executável
 - Menu **EcoBot → 2. Exportar executável (Windows)**. O jogo é gerado em `Builds/Windows/EcoBot.exe`.
 - Ou pelo caminho padrão: *File → Build Profiles* (as cenas já estão na lista).
 - Pela linha de comando (sem abrir o editor):
@@ -132,7 +149,7 @@ A dificuldade cresce porque cada fase apresenta um desafio novo em um lugar segu
 
 ---
 
-## Estrutura do projeto
+## 📁 Estrutura do projeto
 
 ```
 Assets/
@@ -161,7 +178,7 @@ Docs/                   Mapas das fases, rascunho do relatório e roteiro do ví
 
 ---
 
-## Arquitetura do código
+## 🧠 Arquitetura do código
 
 - **Game loop da Unity:** a leitura de controles e as animações ficam no `Update`; a física (velocidade, gravidade, detecção de chão) fica no `FixedUpdate`; a câmera e o parallax ficam no `LateUpdate`, depois que tudo já se moveu.
 - **Gerenciadores persistentes:** `Bootstrap` cria o prefab `Systems` antes da primeira cena (`RuntimeInitializeOnLoadMethod`). Ele contém `GameManager`, `AudioManager`, `Effects` e `SceneFader`, que sobrevivem à troca de cenas (`DontDestroyOnLoad`).
@@ -172,7 +189,7 @@ Docs/                   Mapas das fases, rascunho do relatório e roteiro do ví
 
 ---
 
-## Editor de fases em texto (ASCII)
+## 📝 Editor de fases em texto (ASCII)
 
 As fases são desenhadas em arquivos de texto ([Assets/LevelData](Assets/LevelData)). O construtor lê cada caractere e monta a cena: tiles no Tilemap, colisores unificados (`CompositeCollider2D`), prefabs e decoração automática.
 
@@ -182,8 +199,8 @@ As fases são desenhadas em arquivos de texto ([Assets/LevelData](Assets/LevelDa
 | `=` | Plataforma de mão única | `G` | Muda Ancestral (fim) |
 | `H` | Cipó / escada | `C` | Estação de recarga (checkpoint) |
 | `~` | Lodo tóxico | `o` | Semente |
-| `^` | Espinhos | `b` | Bateria |
-| `s` | Gosma de Lixo | `L` | Folha dourada |
+| `^` | Espinhos | `b` | 🔋 Bateria |
+| `s` | Gosma de Lixo | `L` | 🍃 Folha dourada |
 | `h` | Ouriço de Sucata | `F` | Plataforma rachada |
 | `d` | Drone (vai até o `:` na linha) | `M` | Plataforma móvel horizontal (até o `:`) |
 | `1`–`9` | Placa de dica | `V` | Plataforma móvel vertical (até o `:` acima) |
@@ -192,7 +209,7 @@ Para mudar uma fase: edite o `.txt` e rode **EcoBot → 1** de novo. Para ver o 
 
 ---
 
-## Arte, áudio e créditos
+## 🎨 Arte, áudio e créditos
 
 - **Sprites (pixel art 16×16):** originais, desenhados por código em [Tools/generate_sprites.py](Tools/generate_sprites.py) (personagem, 3 inimigos, itens, 4 conjuntos de tiles, decoração, fundos com parallax, UI e partículas).
 - **Áudio:** original, sintetizado em [Tools/generate_audio.py](Tools/generate_audio.py) (15 efeitos e 6 músicas no estilo chiptune).
@@ -203,7 +220,7 @@ Para regenerar a arte e o som: `python Tools/generate_sprites.py` e `python Tool
 
 ---
 
-## Prints
+## 📸 Prints
 
 | | |
 |---|---|
@@ -222,7 +239,7 @@ Para regenerar a arte e o som: `python Tools/generate_sprites.py` e `python Tool
 
 ---
 
-## Documentação
+## 📚 Documentação
 
-- [Relatório teórico (PDF)](Docs/Relatorio_Teorico_EcoBot.pdf)
-- [Mapas das fases](Docs/Mapas)
+- 📄 [Relatório teórico (PDF)](Docs/Relatorio_Teorico_EcoBot.pdf)
+- 🗺️ [Mapas das fases](Docs/Mapas)
