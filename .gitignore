@@ -1,0 +1,39 @@
+# ---- Unity
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+/[Mm]emoryCaptures/
+/[Rr]ecordings/
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
+sysinfo.txt
+crashlytics-build.properties
+
+# ---- IDEs
+.vs/
+.vscode/
+.idea/
+*.csproj
+*.sln
+*.suo
+*.user
+*.userprefs
+
+# ---- Python (Tools/)
+__pycache__/
+*.pyc
+
+# ---- Sistema
+.DS_Store
+Thumbs.db
+
+# O executável vai em um .zip separado na entrega (não versionar)
+*.zip
+
+# Roteiro pessoal do vídeo (não publicar)
+Docs/Roteiro_Video_Pitch.md

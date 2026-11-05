@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Relatório Teórico - EcoBot: Raízes do Amanhã</title>
+<style>
+  @page { size: A4; margin: 3cm 2cm 2cm 3cm; }
+  * { box-sizing: border-box; }
+  body { font-family: Arial, Helvetica, sans-serif; font-size: 12pt; line-height: 1.5; color: #1d1d1f; margin: 0; }
+  h1 { font-size: 15pt; text-transform: uppercase; margin: 0 0 12pt; padding-bottom: 4pt; border-bottom: 2px solid #2e8c57; color: #1f5f3b; page-break-after: avoid; }
+  h2 { font-size: 12.5pt; margin: 16pt 0 6pt; color: #1f5f3b; page-break-after: avoid; }
+  p { text-align: justify; margin: 0 0 8pt; text-indent: 1.25cm; }
+  p.noindent, li p { text-indent: 0; }
+  ul, ol { margin: 0 0 8pt 0; padding-left: 1cm; }
+  li { margin-bottom: 3pt; text-align: justify; }
+  .chapter { page-break-before: always; }
+  table { width: 100%; border-collapse: collapse; margin: 6pt 0 12pt; font-size: 10.5pt; line-height: 1.3; page-break-inside: avoid; }
+  th { background: #2e8c57; color: #fff; text-align: left; padding: 5pt 6pt; }
+  td { border-bottom: 1px solid #cfd8d3; padding: 4pt 6pt; vertical-align: top; }
+  tr:nth-child(even) td { background: #f2f7f4; }
+  figure { margin: 10pt 0 14pt; text-align: center; page-break-inside: avoid; }
+  figure img { max-width: 100%; border: 1px solid #b9c4be; image-rendering: pixelated; }
+  figcaption { font-size: 10pt; margin-top: 4pt; color: #444; }
+  figcaption b { color: #1d1d1f; }
+  .two { display: flex; gap: 10pt; }
+  .two figure { flex: 1; margin: 6pt 0 10pt; }
+  pre { background: #12303a; color: #d6f5e3; font-family: Consolas, monospace; font-size: 9.5pt; line-height: 1.4; padding: 8pt 10pt; border-radius: 4pt; white-space: pre-wrap; page-break-inside: avoid; margin: 6pt 0 12pt; }
+  code { font-family: Consolas, monospace; font-size: 10.5pt; background: #eef3f0; padding: 0 3pt; border-radius: 2pt; }
+  pre code { background: none; padding: 0; font-size: 9.5pt; }
+  .note { font-size: 10pt; color: #555; }
+
+  /* capa */
+  .cover { height: 24.5cm; display: flex; flex-direction: column; justify-content: space-between; text-align: center; }
+  .cover .inst { font-size: 13pt; font-weight: bold; text-transform: uppercase; line-height: 1.6; }
+  .cover .author { font-size: 13pt; text-transform: uppercase; margin-top: 1.2cm; }
+  .cover .title { font-size: 20pt; font-weight: bold; text-transform: uppercase; color: #1f5f3b; line-height: 1.3; }
+  .cover .subtitle { font-size: 13pt; margin-top: 8pt; }
+  .cover img { width: 9cm; margin: 0 auto; border: none; image-rendering: pixelated; }
+  .cover .place { font-size: 12pt; font-weight: bold; }
+
+  /* sumário */
+  .toc { list-style: none; padding: 0; }
+  .toc li { display: flex; text-align: left; margin-bottom: 6pt; }
+  .toc li span.dots { flex: 1; border-bottom: 1px dotted #888; margin: 0 4pt 5pt; }
+  .toc li.sub { padding-left: 0.8cm; font-size: 11pt; }
+</style>
+</head>
+<body>
+
+<!-- ============================================================ CAPA -->
+<section class="cover">
+  <div>
+    <div class="inst">UniFECAF</div>
+    <div class="inst" style="font-weight:normal;font-size:12pt">Disciplina: Game Development</div>
+    <div class="author">Leon Hauck</div>
+  </div>
+  <div>
+    <img src="../Prints/01_menu.png" alt="Tela inicial do jogo">
+    <div class="title" style="margin-top:18pt">EcoBot: Raízes do Amanhã</div>
+    <div class="subtitle">Relatório teórico do desenvolvimento de um jogo de plataforma 2D na Unity</div>
+  </div>
+  <div class="place">2026</div>
+</section>
+
+<!-- ============================================================ SUMÁRIO -->
+<section class="chapter">
+  <h1>Sumário</h1>
+  <ul class="toc">
+    <li>1 Introdução<span class="dots"></span>3</li>
+    <li>2 Princípios de jogos de plataforma 2D<span class="dots"></span>4</li>
+    <li>3 Planejamento do projeto e mecânicas propostas<span class="dots"></span>5</li>
+    <li>4 Design de níveis e progressão de dificuldade<span class="dots"></span>6</li>
+    <li>5 Interatividade, HUD e feedback<span class="dots"></span>9</li>
+    <li>6 Uso de assets, sprites e animações na Unity<span class="dots"></span>11</li>
+    <li>7 Lógica de programação em C# e estrutura do game loop<span class="dots"></span>13</li>
+    <li>8 Estratégias de inserção de áudio e efeitos sonoros<span class="dots"></span>15</li>
+    <li>9 Conexão entre teoria e prática<span class="dots"></span>16</li>
+    <li class="sub">9.1 Desafios técnicos enfrentados<span class="dots"></span>16</li>
+    <li>10 Conclusão<span class="dots"></span>18</li>
+    <li>Referências<span class="dots"></span>19</li>
+  </ul>
+</section>
+
+<!-- ============================================================ 1 -->
+<section class="chapter">
+  <h1>1 Introdução</h1>
+  <p><b>EcoBot: Raízes do Amanhã</b> é um jogo de plataforma 2D desenvolvido na engine Unity 6 com programação em C#. O jogador controla Eco, um pequeno robô reciclador despertado pela última árvore da floresta de Verdália, que está sendo sufocada pelo lixo e pela fumaça da Fábrica Cinzenta. A missão de Eco é atravessar quatro regiões — floresta, caverna, fábrica e chaminé — recuperando as Sementes Ancestrais, reciclando as criaturas de lixo e plantando a Muda Ancestral ao final de cada fase.</p>
+  <p>O tema ambiental foi escolhido por dar sentido direto às mecânicas: coletar sementes representa recuperar a natureza; pisar nos inimigos de lixo representa reciclá-los; e a progressão do cenário, do verde da floresta ao cinza da fábrica, mostra visualmente a origem da poluição. A narrativa é simples, apresentada no menu inicial, nos títulos de cada fase e na tela final, mas contextualiza o personagem e o universo do jogo.</p>
+  <p>Este relatório apresenta os fundamentos teóricos aplicados no desenvolvimento, organizados nos tópicos solicitados, e relaciona cada conceito com a sua implementação prática no projeto.</p>
+
+  <table>
+    <tr><th style="width:32%">Item</th><th>Descrição</th></tr>
+    <tr><td>Gênero</td><td>Plataforma 2D (side-scroller e fase vertical)</td></tr>
+    <tr><td>Engine / linguagem</td><td>Unity 6 (6000.6) / C#</td></tr>
+    <tr><td>Plataforma alvo</td><td>Windows (executável), com suporte a teclado e gamepad</td></tr>
+    <tr><td>Conteúdo</td><td>4 fases, 3 tipos de inimigo, 3 tipos de coletável, menu, pausa, game over e tela de vitória</td></tr>
+    <tr><td>Arte e áudio</td><td>Originais: 106 sprites em pixel art e 21 arquivos de áudio gerados proceduralmente por scripts próprios</td></tr>
+  </table>
+</section>
+
+<!-- ============================================================ 2 -->
+<section class="chapter">
+  <h1>2 Princípios de jogos de plataforma 2D</h1>
+  <p>Jogos de plataforma têm como desafio central o deslocamento do personagem pelo espaço: saltar entre superfícies, evitar perigos, calcular distâncias e cronometrar movimentos. Por isso, a qualidade de um jogo do gênero depende diretamente da sensação de controle — o chamado <i>game feel</i>. Os princípios considerados no projeto foram:</p>
+  <h2>2.1 Controle responsivo</h2>
+  <p>O jogador precisa sentir que o personagem obedece imediatamente e de forma justa. Foram aplicadas técnicas consagradas no gênero:</p>
+  <ul>
+    <li><b>Coyote time (0,1 s):</b> permite pular por um breve instante depois de sair da borda de uma plataforma, compensando a percepção humana.</li>
+    <li><b>Jump buffer (0,12 s):</b> se o botão de pulo for pressionado pouco antes de tocar o chão, o pulo é executado assim que o personagem aterrissa.</li>
+    <li><b>Pulo de altura variável:</b> soltar o botão durante a subida reduz a velocidade vertical, permitindo pulos curtos ou longos.</li>
+    <li><b>Gravidade maior na queda:</b> a descida é mais rápida que a subida, deixando o pulo mais firme e menos “flutuante”.</li>
+    <li><b>Aceleração e desaceleração:</b> o personagem não para nem arranca de forma brusca, mas responde rápido o suficiente para manobras precisas.</li>
+  </ul>
+  <h2>2.2 Previsibilidade e métricas</h2>
+  <p>Em vez de ajustar a força do pulo por tentativa e erro, a altura do pulo foi definida em blocos (3,4 blocos) e a velocidade inicial é calculada a partir dela pela equação de Torricelli, <code>v = √(2·g·h)</code>. Com isso, as fases foram desenhadas conhecendo exatamente o que é alcançável: degraus de até 3 blocos, vãos de até 4 blocos andando e de até 6 blocos correndo.</p>
+  <h2>2.3 Leitura visual e risco/recompensa</h2>
+  <p>Terreno sólido, plataformas atravessáveis, perigos e itens possuem cores e formas bem distintas, para que o jogador entenda o cenário sem precisar de explicação. Itens opcionais, como as folhas douradas (vida extra), foram colocados em lugares de maior risco, recompensando a exploração e a habilidade.</p>
+</section>
+
+<!-- ============================================================ 3 -->
+<section class="chapter">
+  <h1>3 Planejamento do projeto e mecânicas propostas</h1>
+  <p>O planejamento partiu do conceito (um robô reciclador limpando um mundo poluído) e da lista de requisitos da disciplina. Cada requisito foi convertido em uma mecânica concreta, conforme a tabela abaixo.</p>
+  <table>
+    <tr><th style="width:24%">Requisito</th><th>Implementação no EcoBot</th></tr>
+    <tr><td>Andar</td><td>Movimento horizontal com aceleração, velocidade máxima de 5,5 unidades/s</td></tr>
+    <tr><td>Correr</td><td>Segurar Shift aumenta a velocidade para 9 unidades/s; necessário para atravessar vãos largos</td></tr>
+    <tr><td>Pular</td><td>Coyote time, jump buffer, altura variável e quique ao pisar em inimigos</td></tr>
+    <tr><td>Escalar</td><td>Cipós e escadas: o personagem entra no modo escalada, é centralizado na coluna e pode agarrar no ar</td></tr>
+    <tr><td>Obstáculos</td><td>Espinhos, abismos, lodo tóxico, plataformas que desabam e plataformas móveis</td></tr>
+    <tr><td>Coletáveis</td><td>Sementes (pontos), baterias (energia) e folhas douradas (vida extra)</td></tr>
+    <tr><td>Inimigos</td><td>Gosma de Lixo (patrulha), Ouriço de Sucata (não pode ser pisado) e Drone de Fumaça (voa)</td></tr>
+    <tr><td>Progresso</td><td>Estações de recarga (checkpoints), sistema de vidas e energia, pontuação e recorde</td></tr>
+  </table>
+  <p>Para organizar o desenvolvimento, o código foi dividido em módulos — núcleo, jogador, inimigos, elementos de fase, câmera e interface — cada um em uma pasta própria. Um script de Editor (menu <i>EcoBot</i>) foi criado para gerar automaticamente animações, prefabs e cenas a partir dos dados do projeto, o que permitiu alterar fases e reconstruí-las em segundos durante os testes.</p>
+  <div class="two">
+    <figure><img src="../Prints/02_historia.png"><figcaption><b>Figura 1</b> — Tela de história, que contextualiza a missão</figcaption></figure>
+    <figure><img src="../Prints/03_como_jogar.png"><figcaption><b>Figura 2</b> — Tela “Como jogar” com os controles</figcaption></figure>
+  </div>
+</section>
+
+<!-- ============================================================ 4 -->
+<section class="chapter">
+  <h1>4 Design de níveis e progressão de dificuldade</h1>
+  <p>A progressão segue o modelo <b>apresentar → praticar → combinar</b>: cada mecânica nova aparece primeiro em um ponto seguro, acompanhada de uma placa de dica, e depois passa a ser cobrada junto com as habilidades aprendidas anteriormente. Assim, a dificuldade cresce sem que o jogador seja surpreendido por regras que ainda não conhece.</p>
+  <table>
+    <tr><th style="width:24%">Fase</th><th style="width:38%">Ensina</th><th>Cobra</th></tr>
+    <tr><td><b>1. Floresta Despertar</b></td><td>Andar, pular, correr, escalar, pisar em inimigos, espinhos</td><td>Vão de 6 blocos que exige correr; plataformas sobre abismo</td></tr>
+    <tr><td><b>2. Caverna das Raízes</b></td><td>Inimigo que não pode ser pisado; plataformas que desabam; agarrar cipós no ar</td><td>Corredor baixo com ouriços; travessia de cipó em cipó sobre o abismo</td></tr>
+    <tr><td><b>3. Fábrica Cinzenta</b></td><td>Lodo tóxico, plataformas móveis horizontais e verticais, drones, descer de plataformas</td><td>Sequências com tempo certo sobre o lodo, com drones no caminho</td></tr>
+    <tr><td><b>4. Chaminé Final</b></td><td>— (fase de revisão)</td><td>Subida vertical que mistura escadas, plataformas móveis e rachadas, drones e ouriços</td></tr>
+  </table>
+  <p>Outros cuidados de design: estações de recarga (checkpoints) foram posicionadas antes dos trechos mais difíceis, reduzindo a frustração; um tempo-alvo por fase gera bônus de pontuação e incentiva rejogar; e o bônus por coletar todas as sementes incentiva a exploração. A quarta fase muda a orientação do jogo para vertical, renovando a experiência no clímax.</p>
+  <p>As fases foram descritas em arquivos de texto (ASCII), em que cada caractere representa um elemento (<code>#</code> terreno, <code>=</code> plataforma, <code>H</code> cipó, <code>o</code> semente, <code>s</code> inimigo etc.). Essa abordagem facilitou ajustar distâncias e gerar mapas completos para revisão, como os apresentados abaixo.</p>
+  <figure><img src="../Mapas/Level1_mapa.png"><figcaption><b>Figura 3</b> — Mapa completo da Fase 1 (tutorial)</figcaption></figure>
+  <figure><img src="../Mapas/Level2_mapa.png"><figcaption><b>Figura 4</b> — Mapa completo da Fase 2 (caverna)</figcaption></figure>
+  <figure><img src="../Mapas/Level3_mapa.png"><figcaption><b>Figura 5</b> — Mapa completo da Fase 3 (fábrica)</figcaption></figure>
+  <div class="two">
+    <figure style="flex:0 0 4.2cm"><img src="../Mapas/Level4_mapa.png" style="height:9.5cm"><figcaption><b>Figura 6</b> — Fase 4 (vertical)</figcaption></figure>
+    <figure><img src="../Prints/08_fase4_chamine.png"><figcaption><b>Figura 7</b> — Trecho da Fase 4 em jogo: escada, checkpoint e plataforma móvel</figcaption></figure>
+  </div>
+  <div class="two">
+    <figure><img src="../Prints/05_fase1_cipo.png"><figcaption><b>Figura 8</b> — Fase 1: checkpoint, cipó e inimigo</figcaption></figure>
+    <figure><img src="../Prints/06_fase2_caverna.png"><figcaption><b>Figura 9</b> — Fase 2: cipós sobre o abismo e placa de dica</figcaption></figure>
+  </div>
+  <figure><img src="../Prints/07_fase3_fabrica.png" style="width:75%"><figcaption><b>Figura 10</b> — Fase 3: lodo tóxico e plataformas móveis</figcaption></figure>
+</section>
+
+<!-- ============================================================ 5 -->
+<section class="chapter">
+  <h1>5 Interatividade, HUD e feedback</h1>
+  <p>A interface (HUD) foi desenhada para ser lida em um relance, ocupando apenas os cantos da tela: no canto superior esquerdo ficam as vidas e as três células de energia; no centro, o nome da fase e o tempo; no canto superior direito, as sementes coletadas em relação ao total da fase e a pontuação. Mensagens de tutorial aparecem em um painel na parte inferior apenas quando o jogador se aproxima de uma placa.</p>
+  <figure><img src="../Prints/04_fase1_inicio.png" style="width:85%"><figcaption><b>Figura 11</b> — HUD no início da Fase 1, com o título da fase em destaque</figcaption></figure>
+  <p>O princípio adotado para o feedback foi que toda ação importante deve responder em mais de um canal (visual e sonoro), confirmando ao jogador que a ação aconteceu:</p>
+  <table>
+    <tr><th style="width:22%">Ação</th><th>Feedback visual</th><th style="width:26%">Feedback sonoro</th></tr>
+    <tr><td>Coletar semente</td><td>Partículas douradas, texto flutuante “+100”, ícone do HUD pulsa</td><td>“Plim” de duas notas</td></tr>
+    <tr><td>Pular / aterrissar</td><td>Sprite estica e achata (squash &amp; stretch), poeira</td><td>Salto / impacto</td></tr>
+    <tr><td>Pisar em inimigo</td><td>Inimigo achata, nuvem de partículas, “+200”</td><td>Pisão</td></tr>
+    <tr><td>Levar dano</td><td>Recuo, personagem pisca (invencível), tela treme, energia diminui</td><td>Som de dano</td></tr>
+    <tr><td>Checkpoint</td><td>Luz verde acende, texto “CHECKPOINT!”</td><td>Arpejo ascendente</td></tr>
+    <tr><td>Fim de fase</td><td>Confete, Eco comemora, painel com bônus</td><td>Fanfarra</td></tr>
+  </table>
+  <p>Os menus funcionam com mouse, teclado e gamepad: o botão selecionado fica destacado em amarelo, há som ao navegar e ao confirmar, e passar o mouse sobre um botão também o seleciona, mantendo o comportamento consistente entre os dispositivos.</p>
+  <div class="two">
+    <figure><img src="../Prints/09_pausa.png"><figcaption><b>Figura 12</b> — Menu de pausa</figcaption></figure>
+    <figure><img src="../Prints/10_fase_concluida.png"><figcaption><b>Figura 13</b> — Painel de fase concluída com bônus</figcaption></figure>
+  </div>
+</section>
+
+<!-- ============================================================ 6 -->
+<section class="chapter">
+  <h1>6 Uso de assets, sprites e animações na Unity</h1>
+  <h2>6.1 Sprites e importação</h2>
+  <p>Toda a arte é original, em pixel art com blocos de 16×16 pixels, produzida por um script próprio (<code>Tools/generate_sprites.py</code>): personagem, três inimigos, itens, quatro conjuntos de tiles (floresta, caverna, fábrica e torre), decoração, fundos, ícones de interface e partículas. Na Unity, os sprites são importados com 16 <i>pixels per unit</i> (1 bloco = 1 unidade), filtro <i>Point</i> e sem compressão, preservando a nitidez. Essas configurações são aplicadas automaticamente por um <code>AssetPostprocessor</code>.</p>
+  <h2>6.2 Tilemap e colisores</h2>
+  <p>O cenário é construído com o sistema de <b>Tilemap</b>. O terreno usa <code>TilemapCollider2D</code> combinado com <code>CompositeCollider2D</code>, que une todos os blocos em um único colisor contínuo e evita que o personagem “tropece” nas junções entre blocos. As plataformas atravessáveis por baixo usam <code>PlatformEffector2D</code> no modo <i>one-way</i>, e os cipós/escadas usam um colisor do tipo gatilho (<i>trigger</i>).</p>
+  <h2>6.3 Animação com a ferramenta da Unity</h2>
+  <p>Cada animação é um <code>AnimationClip</code> que troca o sprite quadro a quadro. O personagem Eco possui um <b>Animator Controller</b> com os estados <i>Idle, Walk, Run, Jump, Fall, Climb, Hurt</i> e <i>Win</i>, ligados por transições que dependem de parâmetros atualizados pelo código: <code>Speed</code> (velocidade horizontal), <code>Grounded</code> (no chão), <code>VelY</code> (velocidade vertical), <code>Climbing</code> e os gatilhos <code>Hurt</code> e <code>Win</code>. A animação de escalar só avança enquanto o jogador se move, usando o parâmetro <code>ClimbMove</code> como multiplicador de velocidade do estado.</p>
+  <p>Os inimigos têm estados de movimento e de derrota (a Gosma achata e o Drone cai ao serem pisados), e itens, checkpoints e a Muda Ancestral também são animados. Somam-se a isso dois planos de fundo por fase com efeito <b>parallax</b> (movendo-se em velocidades diferentes para criar profundidade) e efeitos de <b>partículas</b> (<code>ParticleSystem</code>) para brilho, poeira, impacto e confete.</p>
+  <table>
+    <tr><th>Estado</th><th>Quadros</th><th>Condição de entrada</th></tr>
+    <tr><td>Idle</td><td>6 (respiração e piscar)</td><td>No chão e parado</td></tr>
+    <tr><td>Walk / Run</td><td>4 + 4</td><td>Speed &gt; 0,1 / Speed &gt; 7</td></tr>
+    <tr><td>Jump / Fall</td><td>1 + 1</td><td>Fora do chão, subindo / descendo</td></tr>
+    <tr><td>Climb</td><td>2 (vista de costas)</td><td>Climbing = verdadeiro</td></tr>
+    <tr><td>Hurt / Win</td><td>1 / 2</td><td>Gatilhos Hurt / Win</td></tr>
+  </table>
+</section>
+
+<!-- ============================================================ 7 -->
+<section class="chapter">
+  <h1>7 Lógica de programação em C# e estrutura do game loop</h1>
+  <p>A Unity executa, a cada quadro, uma sequência de métodos que formam o <i>game loop</i>. O projeto usa cada etapa com uma responsabilidade clara:</p>
+  <ul>
+    <li><b>Awake / Start:</b> inicialização e busca de referências.</li>
+    <li><b>Update</b> (a cada quadro): leitura dos controles, contadores de coyote time e jump buffer, atualização das animações e da interface.</li>
+    <li><b>FixedUpdate</b> (passo fixo da física): aplicação de velocidade e gravidade, detecção de chão com <code>Physics2D.OverlapBox</code>, movimento de plataformas e inimigos.</li>
+    <li><b>LateUpdate:</b> câmera e parallax, executados depois que todos os objetos já se moveram, evitando tremidas.</li>
+  </ul>
+  <h2>7.1 Padrões utilizados</h2>
+  <ul>
+    <li><b>Singleton persistente:</b> <code>GameManager</code> (vidas, pontos, fluxo de cenas) e <code>AudioManager</code> são criados automaticamente antes da primeira cena (<code>RuntimeInitializeOnLoadMethod</code>) e sobrevivem às trocas de cena (<code>DontDestroyOnLoad</code>).</li>
+    <li><b>Eventos:</b> o <code>GameManager</code> dispara eventos (<code>event Action</code>) quando os valores mudam, a fase começa ou termina, e o HUD apenas escuta esses eventos — a interface não contém regras de jogo.</li>
+    <li><b>Composição:</b> um inimigo é a soma do componente <code>Enemy</code> (dano e pisão) com um “motor” de movimento (<code>PatrolMover</code> ou <code>FlyingMover</code>). Criar um inimigo novo é questão de combinar componentes.</li>
+    <li><b>Máquina de estados:</b> o <code>PlayerController</code> alterna entre os estados Normal, Escalando, Ferido, Morto e Congelado, e o Animator espelha esses estados visualmente.</li>
+    <li><b>Camada de input:</b> a classe <code>GameInput</code> isola teclado e gamepad do restante do código e funciona com os dois sistemas de entrada da Unity.</li>
+  </ul>
+  <h2>7.2 Exemplos de código</h2>
+  <p class="noindent">Cálculo da velocidade do pulo a partir da altura desejada (em blocos):</p>
+<pre><code>float JumpVelocity =&gt;
+    Mathf.Sqrt(2f * Mathf.Abs(Physics2D.gravity.y) * gravityScale * jumpHeight);</code></pre>
+  <p class="noindent">Coyote time e jump buffer, executados no <code>FixedUpdate</code>:</p>
+<pre><code>// Update: guarda o momento em que o botão foi apertado
+if (GameInput.JumpPressed) jumpBufferTimer = jumpBufferTime;
+coyoteTimer = grounded ? coyoteTime : coyoteTimer - Time.deltaTime;
+
+// FixedUpdate: pula se o botão foi apertado há pouco E está (ou esteve há pouco) no chão
+if (jumpBufferTimer &gt; 0f &amp;&amp; (grounded || coyoteTimer &gt; 0f)) Jump();</code></pre>
+  <p class="noindent">Detecção do pisão no inimigo, comparando a posição dos pés do jogador com o centro do inimigo:</p>
+<pre><code>bool stomp = player.bounds.min.y &gt;= enemy.bounds.center.y;
+if (canBeStomped &amp;&amp; stomp) { playerController.Bounce(); Defeat(); }
+else health.TakeDamage(damage, transform.position);</code></pre>
+</section>
+
+<!-- ============================================================ 8 -->
+<section class="chapter">
+  <h1>8 Estratégias de inserção de áudio e efeitos sonoros</h1>
+  <p>O áudio foi tratado como parte do feedback e da ambientação. Todas as músicas e efeitos são originais, sintetizados por um script próprio (<code>Tools/generate_audio.py</code>) a partir de ondas quadrada, triangular e de ruído, em estilo <i>chiptune</i>, coerente com a estética pixel art.</p>
+  <ul>
+    <li><b>Trilha por região:</b> cada fase tem uma música que combina com o seu clima — alegre na floresta (Sol maior, 132 BPM), misteriosa na caverna (Lá menor, 100 BPM, timbre mais suave), tensa na fábrica (Mi menor, 140 BPM, baixo pulsante) e épica na chaminé (Ré menor, 150 BPM). O menu e a tela de vitória têm temas próprios.</li>
+    <li><b>Transições suaves:</b> o <code>AudioManager</code> faz <i>fade</i> ao trocar de música, evitando cortes bruscos entre cenas.</li>
+    <li><b>Efeitos centralizados:</b> todos os sons passam por <code>AudioManager.Play(Sfx.X)</code>, com volume ajustável por efeito e leve variação aleatória de tom nos sons repetitivos (pulo, coleta), para que não se tornem cansativos.</li>
+    <li><b>Hierarquia sonora:</b> sons de dano, game over e fim de fase são mais marcantes; sons de interface são curtos e baixos.</li>
+    <li><b>Otimização:</b> as músicas são importadas em <i>streaming</i> (Vorbis), economizando memória; os efeitos curtos ficam carregados para tocar sem atraso.</li>
+    <li><b>Controle do jogador:</b> a tecla M liga e desliga o som a qualquer momento.</li>
+  </ul>
+  <table>
+    <tr><th>Categoria</th><th>Sons</th></tr>
+    <tr><td>Movimento</td><td>Pulo, aterrissagem</td></tr>
+    <tr><td>Coleta</td><td>Semente, energia, vida extra</td></tr>
+    <tr><td>Combate / perigo</td><td>Dano, pisão, inimigo atingido, plataforma desabando</td></tr>
+    <tr><td>Progresso</td><td>Checkpoint, fase concluída, game over</td></tr>
+    <tr><td>Interface</td><td>Navegar, confirmar, pausa</td></tr>
+    <tr><td>Músicas</td><td>Menu, Fase 1, Fase 2, Fase 3, Fase 4, Vitória</td></tr>
+  </table>
+</section>
+
+<!-- ============================================================ 9 -->
+<section class="chapter">
+  <h1>9 Conexão entre teoria e prática</h1>
+  <p>A tabela a seguir resume como os conceitos estudados na disciplina se materializaram no jogo:</p>
+  <table>
+    <tr><th style="width:34%">Conceito teórico</th><th>Onde aparece no EcoBot</th></tr>
+    <tr><td>Controle responsivo (game feel)</td><td>Coyote time, jump buffer, pulo variável e squash &amp; stretch no <code>PlayerController</code></td></tr>
+    <tr><td>Curva de dificuldade</td><td>Ordem das mecânicas nas quatro fases e placas de tutorial</td></tr>
+    <tr><td>Feedback multimodal</td><td>Partículas, textos flutuantes, som e HUD respondendo a cada ação</td></tr>
+    <tr><td>Game loop</td><td>Divisão de responsabilidades entre Update, FixedUpdate e LateUpdate</td></tr>
+    <tr><td>Máquina de estados</td><td>Animator do Eco e estados internos do <code>PlayerController</code></td></tr>
+    <tr><td>Baixo acoplamento</td><td>Eventos do <code>GameManager</code> consumidos pelo HUD</td></tr>
+    <tr><td>Reutilização (prefabs e componentes)</td><td>Inimigos, itens e plataformas como prefabs combináveis</td></tr>
+    <tr><td>Narrativa ambiental</td><td>Tema da reciclagem presente nas mecânicas, inimigos e cenários</td></tr>
+  </table>
+
+  <h2>9.1 Desafios técnicos enfrentados</h2>
+  <ul>
+    <li><b>Chão sem colisão ao carregar a fase:</b> nos primeiros testes o personagem atravessava o chão. A investigação mostrou que as cenas eram salvas antes de a Unity gerar a forma dos colisores do Tilemap, que ficavam vazios. A solução foi forçar a geração com <code>ProcessTilemapChanges()</code> e <code>GenerateGeometry()</code> antes de salvar, e adicionar uma verificação de segurança ao carregar a fase.</li>
+    <li><b>Carona nas plataformas móveis:</b> o jogador escorregava das plataformas em movimento. A plataforma passou a informar sua própria velocidade, que é somada à do jogador enquanto ele está sobre ela.</li>
+    <li><b>Escalar através de plataformas de mão única:</b> ao subir uma escada que termina em uma plataforma, o personagem batia nela. Durante a escalada, a colisão com essas plataformas é ignorada temporariamente (<code>Physics2D.IgnoreCollision</code>) e restaurada assim que o corpo sai de dentro delas.</li>
+    <li><b>Pisão versus colisão lateral:</b> foi necessário diferenciar “pisar no inimigo” de “encostar nele”. A regra adotada compara a posição dos pés do jogador com o centro do inimigo no momento do contato.</li>
+    <li><b>Atualização de versão da Unity:</b> no Unity 6.6, algumas funções usadas (como <code>FindObjectsByType</code> com ordenação) passaram a ser obsoletas, e a captura de tela dependia de um módulo não habilitado. Ambos foram corrigidos ajustando o código e o manifesto de pacotes.</li>
+  </ul>
+</section>
+
+<!-- ============================================================ 10 -->
+<section class="chapter">
+  <h1>10 Conclusão</h1>
+  <p>O desenvolvimento do <b>EcoBot: Raízes do Amanhã</b> permitiu aplicar na prática os principais conceitos da disciplina de Game Development: a construção de controles responsivos, o planejamento de fases com progressão de dificuldade, a comunicação com o jogador por meio de HUD e feedback, o uso das ferramentas de sprites, Tilemap e animação da Unity, a organização do código em C# segundo o game loop e a inserção de áudio como parte da experiência.</p>
+  <p>O resultado é uma experiência jogável completa — menu, quatro fases, pausa, game over e tela final — que pode ser apresentada como peça de portfólio. Além do jogo em si, o projeto demonstra boas práticas de organização: código separado por responsabilidade, uso de eventos e componentes reutilizáveis, fases descritas em dados e um processo automatizado de construção das cenas e do executável.</p>
+  <p>Como próximos passos, o jogo poderia receber novas fases e um chefe final, salvamento de progresso entre sessões, opções de volume e de controles no menu e uma versão para navegador (WebGL), ampliando o alcance da publicação.</p>
+  <figure><img src="../Prints/11_vitoria.png" style="width:80%"><figcaption><b>Figura 14</b> — Tela final do jogo</figcaption></figure>
+</section>
+
+<!-- ============================================================ REFERÊNCIAS -->
+<section class="chapter">
+  <h1>Referências</h1>
+  <p class="noindent">SWINK, Steve. <b>Game Feel:</b> a game designer's guide to virtual sensation. Burlington: Morgan Kaufmann, 2009.</p>
+  <p class="noindent">SCHELL, Jesse. <b>A arte de game design:</b> o livro original. Rio de Janeiro: Elsevier, 2011.</p>
+  <p class="noindent">UNITY TECHNOLOGIES. <b>Unity Learn:</b> get started. Disponível em: https://unity.com/pt/learn/get-started. Acesso em: nov. 2026.</p>
+  <p class="noindent">UNITY TECHNOLOGIES. <b>Unity Manual e Scripting API</b>. Disponível em: https://docs.unity3d.com. Acesso em: nov. 2026.</p>
+  <p class="noindent">SENTRY. <b>Unity tutorial:</b> developing your first Unity game — part 1. Disponível em: https://blog.sentry.io/unity-tutorial-developing-your-first-unity-game-part-1/. Acesso em: nov. 2026.</p>
+</section>
+
+</body>
+</html>
