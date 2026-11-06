@@ -26,6 +26,7 @@
 ---
 
 ## 📑 Sumário
+- 🎬 [Trailer](#-trailer)
 - 🎮 [Como jogar](#-como-jogar)
 - 🧩 [Mecânicas](#-mecânicas)
 - 🌎 [Fases](#-fases)
@@ -36,6 +37,13 @@
 - 🎨 [Arte, áudio e créditos](#-arte-áudio-e-créditos)
 - 📸 [Prints](#-prints)
 - 📚 [Documentação](#-documentação)
+
+
+---
+## 🎬 Trailer
+
+https://github.com/user-attachments/assets/d176d3eb-cc72-47f9-b1bf-d73c2cd30b7f
+
 
 ---
 
