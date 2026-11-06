@@ -29,6 +29,8 @@ namespace EcoBot
             howToButton.onClick.AddListener(() => Open(howToPanel, backButtons[0]));
             creditsButton.onClick.AddListener(() => Open(creditsPanel, backButtons[1]));
             quitButton.onClick.AddListener(Quit);
+            // No navegador não existe "sair do jogo": o botão some.
+            if (Application.platform == RuntimePlatform.WebGLPlayer) quitButton.gameObject.SetActive(false);
             startGameButton.onClick.AddListener(() => GameManager.Instance.NewGame());
             foreach (var b in backButtons) b.onClick.AddListener(Back);
 

@@ -68,6 +68,7 @@ namespace EcoBot
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         static void Init()
         {
+            if (Application.platform == RuntimePlatform.WebGLPlayer) return; // ferramenta só para Windows
             string[] args = Environment.GetCommandLineArgs();
             int i = Array.IndexOf(args, "-trailer");
             if (i < 0 || i + 1 >= args.Length) return;

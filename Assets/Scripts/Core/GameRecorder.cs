@@ -39,6 +39,7 @@ namespace EcoBot
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         static void Init()
         {
+            if (Application.platform == RuntimePlatform.WebGLPlayer) return; // ferramenta só para Windows
             string folder = Arg("-gravar");
             if (folder == null) return;
             if (folder == "") folder = Path.Combine(Path.GetDirectoryName(Application.dataPath) ?? ".", "Gravacao");

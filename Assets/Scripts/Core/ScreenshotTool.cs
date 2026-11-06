@@ -20,6 +20,7 @@ namespace EcoBot
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         static void Create()
         {
+            if (Application.platform == RuntimePlatform.WebGLPlayer) return; // ferramenta só para Windows
             var go = new GameObject("ScreenshotTool");
             DontDestroyOnLoad(go);
             var tool = go.AddComponent<ScreenshotTool>();

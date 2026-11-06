@@ -7,7 +7,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Unity-6.6-000000?logo=unity&logoColor=white" alt="Unity 6.6">
   <img src="https://img.shields.io/badge/C%23-scripts-512BD4?logo=dotnet&logoColor=white" alt="C#">
-  <img src="https://img.shields.io/badge/plataforma-Windows-0078D6" alt="Windows">
+  <img src="https://img.shields.io/badge/plataformas-Windows%20%7C%20Navegador-0078D6" alt="Windows e navegador">
   <img src="https://img.shields.io/badge/arte-pixel%20art%20original-4cbb6c" alt="Pixel art original">
   <img src="https://img.shields.io/badge/ferramentas-Python-3776AB?logo=python&logoColor=white" alt="Python">
   <img src="https://img.shields.io/badge/status-completo-2e8c57" alt="Status: completo">
@@ -15,6 +15,11 @@
 
 <p align="center">
   Jogo de plataforma 2D feito na <b>Unity 6</b> com <b>C#</b>, desenvolvido como projeto da disciplina de Game Development (UniFECAF).
+</p>
+
+<p align="center">
+  <a href="https://leonhauck.github.io/Ecobot/"><img src="https://img.shields.io/badge/Jogar_no_navegador-2e8c57?style=for-the-badge" alt="Jogar no navegador"></a>
+  <a href="https://github.com/LeonHauck/Ecobot/releases/latest"><img src="https://img.shields.io/badge/Baixar_para_Windows-0078D6?style=for-the-badge" alt="Baixar para Windows"></a>
 </p>
 
 > 🌱 A Floresta de Verdália está sendo sufocada pelo lixo e pela fumaça da Fábrica Cinzenta. Você controla **Eco**, um pequeno robô reciclador despertado pela última árvore da floresta. A missão dele é recuperar as Sementes Ancestrais, reciclar as criaturas de lixo e plantar a Muda Ancestral em cada região até chegar à Chaminé Final.
@@ -26,6 +31,7 @@
 ---
 
 ## 📑 Sumário
+- 🎯 [Jogar agora](#-jogar-agora)
 - 🎬 [Trailer](#-trailer)
 - 🎮 [Como jogar](#-como-jogar)
 - 🧩 [Mecânicas](#-mecânicas)
@@ -40,6 +46,16 @@
 
 
 ---
+
+## 🎯 Jogar agora
+
+| Onde | Como |
+|---|---|
+| 🌐 **Navegador** | Acesse **[leonhauck.github.io/Ecobot](https://leonhauck.github.io/Ecobot/)** e jogue na hora, sem instalar nada (computador com teclado ou gamepad). |
+| 💾 **Windows** | Baixe o `EcoBot_Windows.zip` na **[página de Releases](https://github.com/LeonHauck/Ecobot/releases/latest)**, extraia e abra o `EcoBot.exe`. |
+
+---
+
 ## 🎬 Trailer
 
 https://github.com/user-attachments/assets/d176d3eb-cc72-47f9-b1bf-d73c2cd30b7f
@@ -140,8 +156,10 @@ A dificuldade cresce porque cada fase apresenta um desafio novo em um lugar segu
 ## 🚀 Como abrir e executar
 
 ### ▶️ Jogar o executável
-1. Baixe o `.zip` da entrega e extraia.
-2. Execute `EcoBot.exe` (Windows 64 bits).
+1. Baixe o `EcoBot_Windows.zip` na [página de Releases](https://github.com/LeonHauck/Ecobot/releases/latest) e extraia.
+2. Execute `EcoBot.exe` (Windows 10/11, 64 bits). Se o Windows mostrar "O Windows protegeu o computador", clique em **Mais informações → Executar assim mesmo** (o jogo não tem assinatura digital).
+
+Ou jogue direto no navegador: **[leonhauck.github.io/Ecobot](https://leonhauck.github.io/Ecobot/)**.
 
 ### 🛠️ Abrir o projeto na Unity
 1. Instale o **Unity Hub** e uma versão **Unity 6 (6000.x LTS)** com o módulo *Windows Build Support*.
@@ -151,6 +169,7 @@ A dificuldade cresce porque cada fase apresenta um desafio novo em um lugar segu
 
 ### 📦 Gerar o executável
 - Menu **EcoBot → 2. Exportar executável (Windows)**. O jogo é gerado em `Builds/Windows/EcoBot.exe`.
+- Menu **EcoBot → 3. Exportar para navegador (WebGL)**. A versão web é gerada em `Builds/WebGL` (é o que está publicado no GitHub Pages).
 - Ou pelo caminho padrão: *File → Build Profiles* (as cenas já estão na lista).
 - Pela linha de comando (sem abrir o editor):
   ```

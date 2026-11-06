@@ -30,6 +30,7 @@ namespace EcoBot.EditorTools
         const string AnimRoot = "Assets/Animations";
         const string TilesRoot = "Assets/Tiles";
         const string BuildPath = "Builds/Windows/EcoBot.exe";
+        const string WebGLPath = "Builds/WebGL";
 
         static readonly string[] SceneOrder = { "MainMenu", "Level1", "Level2", "Level3", "Level4", "Victory" };
 
@@ -50,6 +51,12 @@ namespace EcoBot.EditorTools
         static void BuildWindowsMenu()
         {
             if (BuildWindows()) EditorUtility.RevealInFinder(BuildPath);
+        }
+
+        [MenuItem("EcoBot/3. Exportar para navegador (WebGL)", priority = 3)]
+        static void BuildWebGLMenu()
+        {
+            if (BuildWebGL()) EditorUtility.RevealInFinder(Path.Combine(WebGLPath, "index.html"));
         }
 
         [MenuItem("EcoBot/Abrir cena do menu", priority = 20)]
@@ -118,6 +125,49 @@ namespace EcoBot.EditorTools
             }
             Debug.LogError("EcoBot: falha ao exportar: " + report.summary.result);
             return false;
+        }
+
+        /// <summary>
+        /// Versão para navegador (GitHub Pages / itch.io). Usa Gzip com descompressão em JavaScript,
+        /// porque o GitHub Pages não envia os cabeçalhos de compressão que a Unity espera.
+        /// </summary>
+        static bool BuildWebGL()
+        {
+            if (!BuildPipeline.IsBuildTargetSupported(BuildTargetGroup.WebGL, BuildTarget.WebGL))
+            {
+                Debug.LogError("EcoBot: instale o módulo \"Web Build Support\" no Unity Hub (Instalações > engrenagem > Adicionar módulos).");
+                return false;
+            }
+            var scenes = SceneOrder.Select(ScenePath).Where(File.Exists).ToArray();
+            if (scenes.Length < SceneOrder.Length)
+            {
+                Debug.LogError("EcoBot: gere o projeto antes de exportar (menu EcoBot > 1).");
+                return false;
+            }
+
+            PlayerSettings.WebGL.compressionFormat = WebGLCompressionFormat.Gzip;
+            PlayerSettings.WebGL.decompressionFallback = true;
+            PlayerSettings.WebGL.template = "APPLICATION:Default";
+            PlayerSettings.defaultWebScreenWidth = 1280;
+            PlayerSettings.defaultWebScreenHeight = 720;
+
+            var options = new BuildPlayerOptions
+            {
+                scenes = scenes,
+                locationPathName = WebGLPath,
+                target = BuildTarget.WebGL,
+                options = BuildOptions.None
+            };
+            BuildReport report = BuildPipeline.BuildPlayer(options);
+            if (report.summary.result != BuildResult.Succeeded)
+            {
+                Debug.LogError("EcoBot: falha ao exportar WebGL: " + report.summary.result);
+                return false;
+            }
+            // Evita que o GitHub Pages processe os arquivos com Jekyll.
+            File.WriteAllText(Path.Combine(WebGLPath, ".nojekyll"), "");
+            Debug.Log($"<b>EcoBot</b>: versão para navegador gerada em {Path.GetFullPath(WebGLPath)}");
+            return true;
         }
 
         static void ConfigurePlayerSettings()
