@@ -37,3 +37,7 @@ Thumbs.db
 
 # Roteiro pessoal do vídeo (não publicar)
 Docs/Roteiro_Video_Pitch.md
+
+# Gravações brutas de gameplay e trailers gerados (pesados)
+/Gravacao/
+/Trailer/

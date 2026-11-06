@@ -25,6 +25,9 @@ namespace EcoBot
     {
         public static GameManager Instance { get; private set; }
 
+        /// <summary>Desligado pelo piloto automático do trailer, para a fase não avançar sozinha.</summary>
+        public static bool AutoContinueEnabled = true;
+
         public const string MenuScene = "MainMenu";
         public const string VictoryScene = "Victory";
         public static readonly string[] LevelScenes = { "Level1", "Level2", "Level3", "Level4" };
@@ -210,6 +213,7 @@ namespace EcoBot
 
         IEnumerator AutoContinue()
         {
+            if (!AutoContinueEnabled) yield break;
             yield return new WaitForSecondsRealtime(autoContinueDelay);
             autoContinue = null;
             GoToNextLevel();

@@ -76,6 +76,9 @@ namespace EcoBot
         float ignoreMinTimer;
 
         public bool FacingRight => facingRight;
+        public bool IsGrounded => grounded;
+        public bool IsClimbing => state == State.Climbing;
+        public Vector2 Velocity => rb.linearVelocity;
         public bool IsFrozen => state == State.Frozen;
         public float VerticalVelocity => rb.linearVelocity.y;
         float JumpVelocity => Mathf.Sqrt(2f * Mathf.Abs(Physics2D.gravity.y) * gravityScale * jumpHeight);

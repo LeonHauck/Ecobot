@@ -1,0 +1,42 @@
+# Roteiro do piloto automático do trailer (lido por EcoBot.exe -trailer)
+# cena <nome> <Cena> [x,y] [recarregar]  -> começa uma cena (x,y = teletransporte)
+# Comandos: R/L/U/D direção, S correr, J pular, A pulo automático, N parado
+#           número = segundos | @valor = até x/y chegar | @chao = até tocar o chão
+#           clique:<Botao> aperta um botão da interface
+
+cena menu MainMenu
+  N3.5
+
+# ---------------- Fase 1: Floresta Despertar
+cena f1_inicio Level1
+  N1.2 RSA@45 RS@50 RSA@62 RSA@78.5
+cena f1_cipo Level1
+  R@80.4 N0.2 U@13.6 N@chao R@87.4 N0.3 R@89 N@chao RSA@118
+cena f1_final Level1
+  RSA@123.3 RSJ0.4 N@chao RSA@129.6 RSJ0.4 N@chao RS@133 RSJ0.4 N@chao R@143.5 N3
+
+# ---------------- Fase 2: Caverna das Raízes
+cena f2_inicio Level2
+  N1.2 RA@21.3 RJ0.3 N@chao R@24.3 RJ0.35 N@chao RA@32
+cena f2_quedas Level2 32.5,9.5
+  N0.3 R@35.3 RJ0.4 R@39.3 N@chao RJ0.3 R@42.3 N@chao RJ0.3 R@45.3 N@chao RJ0.3 R@48.5 N@chao RA@62
+cena f2_cipos Level2 80.5,7.5
+  R@81.3 RUJ0.5 U@14 D@14.2 RUJ0.75 U@14 D@14.2 RUJ0.75 U@14 D@14.2 RJ0.4 R@97 N@chao N0.4
+
+# ---------------- Fase 3: Fábrica Cinzenta
+cena f3_inicio Level3
+  N1.2 R@15.6 N2.2 RJ0.5 N@chao N5.6 RJ0.5 R@37 N@chao RA@43.8 R@44.5 U@12.6 N@chao R@50.5 N0.5
+cena f3_vertical Level3 100.5,7.5 recarregar
+  N5.4 RJ0.45 N@chao N2.0 R@104.6 RJ0.5 R@108.6 N@chao R@111 N1
+
+# ---------------- Fase 4: Chaminé Final
+cena f4_inicio Level4
+  N1.2 RA@33.5 U@12.6 N@chao L@26.4 LJ0.5 L@22.5 N@chao L@19.4 LJ0.5 L@15.2 N@chao N0.5
+cena f4_subida Level4 11.5,18.5 recarregar
+  N4.8 R@13.2 RJ0.4 R@16 RA@35
+cena f4_topo Level4 24.5,78.5 recarregar
+  U@86.45 N@chao N1.2 R@34.5 N4
+
+# ---------------- Final
+cena vitoria Victory
+  N5

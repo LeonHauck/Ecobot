@@ -40,6 +40,11 @@ namespace EcoBot
         [SerializeField, Range(0f, 1f)] float sfxVolume = 0.8f;
         [SerializeField] float musicFadeTime = 0.6f;
 
+        /// <summary>Avisos para o modo gravação (GameRecorder): (clip, volume, pitch).</summary>
+        public static event Action<AudioClip, float, float> SfxPlayed;
+        /// <summary>Música começou (clip) ou parou (null).</summary>
+        public static event Action<AudioClip> MusicChanged;
+
         readonly Dictionary<Sfx, SfxClip> lookup = new Dictionary<Sfx, SfxClip>();
         Coroutine musicRoutine;
 
@@ -88,6 +93,7 @@ namespace EcoBot
             if (!lookup.TryGetValue(id, out var e)) return;
             sfxSource.pitch = e.randomPitch ? UnityEngine.Random.Range(0.92f, 1.08f) : 1f;
             sfxSource.PlayOneShot(e.clip, e.volume * sfxVolume);
+            SfxPlayed?.Invoke(e.clip, e.volume * sfxVolume, sfxSource.pitch);
         }
 
         void PlayMusicInternal(AudioClip clip)
@@ -107,6 +113,7 @@ namespace EcoBot
             }
             musicSource.Stop();
             musicSource.clip = next;
+            MusicChanged?.Invoke(next);
             if (next == null) yield break;
 
             musicSource.loop = true;

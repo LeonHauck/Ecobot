@@ -19,7 +19,9 @@
 
 > 🌱 A Floresta de Verdália está sendo sufocada pelo lixo e pela fumaça da Fábrica Cinzenta. Você controla **Eco**, um pequeno robô reciclador despertado pela última árvore da floresta. A missão dele é recuperar as Sementes Ancestrais, reciclar as criaturas de lixo e plantar a Muda Ancestral em cada região até chegar à Chaminé Final.
 
-![Fase 1 em jogo](Docs/Prints/04_fase1_inicio.png)
+<p align="center">
+  <img src="Docs/Imagens/trailer.gif" width="720" alt="Trailer do EcoBot: trechos das 4 fases">
+</p>
 
 ---
 

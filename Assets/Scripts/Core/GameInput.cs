@@ -6,6 +6,19 @@ using UnityEngine.InputSystem;
 namespace EcoBot
 {
     /// <summary>
+    /// Controle "virtual": quando definido, substitui teclado e gamepad
+    /// (usado pelo piloto automático que grava o trailer).
+    /// </summary>
+    public interface IInputOverride
+    {
+        float Horizontal { get; }
+        float Vertical { get; }
+        bool JumpPressed { get; }
+        bool JumpHeld { get; }
+        bool RunHeld { get; }
+    }
+
+    /// <summary>
     /// Ponto único de leitura dos controles (teclado e gamepad).
     /// Os scripts do jogo nunca leem o teclado diretamente: perguntam para o GameInput.
     /// Funciona com o Input Manager clássico ou com o novo Input System.
@@ -13,6 +26,15 @@ namespace EcoBot
     public static class GameInput
     {
         const float DeadZone = 0.35f;
+
+        /// <summary>Se não for null, os comandos vêm daqui em vez do teclado/gamepad.</summary>
+        public static IInputOverride Override;
+
+        public static float Horizontal => Override != null ? Override.Horizontal : RawHorizontal;
+        public static float Vertical => Override != null ? Override.Vertical : RawVertical;
+        public static bool JumpPressed => Override != null ? Override.JumpPressed : RawJumpPressed;
+        public static bool JumpHeld => Override != null ? Override.JumpHeld : RawJumpHeld;
+        public static bool RunHeld => Override != null ? Override.RunHeld : RawRunHeld;
 
 #if ENABLE_LEGACY_INPUT_MANAGER || !ENABLE_INPUT_SYSTEM
         static bool Key(params KeyCode[] keys)
@@ -33,7 +55,7 @@ namespace EcoBot
             catch (System.ArgumentException) { return 0f; } // eixo não configurado no projeto
         }
 
-        public static float Horizontal
+        static float RawHorizontal
         {
             get
             {
@@ -45,7 +67,7 @@ namespace EcoBot
             }
         }
 
-        public static float Vertical
+        static float RawVertical
         {
             get
             {
@@ -57,9 +79,9 @@ namespace EcoBot
             }
         }
 
-        public static bool JumpPressed => KeyDown(KeyCode.Space, KeyCode.K, KeyCode.Z, KeyCode.JoystickButton0);
-        public static bool JumpHeld => Key(KeyCode.Space, KeyCode.K, KeyCode.Z, KeyCode.JoystickButton0);
-        public static bool RunHeld => Key(KeyCode.LeftShift, KeyCode.RightShift, KeyCode.J, KeyCode.X, KeyCode.JoystickButton2);
+        static bool RawJumpPressed => KeyDown(KeyCode.Space, KeyCode.K, KeyCode.Z, KeyCode.JoystickButton0);
+        static bool RawJumpHeld => Key(KeyCode.Space, KeyCode.K, KeyCode.Z, KeyCode.JoystickButton0);
+        static bool RawRunHeld => Key(KeyCode.LeftShift, KeyCode.RightShift, KeyCode.J, KeyCode.X, KeyCode.JoystickButton2);
         public static bool PausePressed => KeyDown(KeyCode.Escape, KeyCode.P, KeyCode.JoystickButton7);
         public static bool CancelPressed => KeyDown(KeyCode.Escape, KeyCode.Backspace, KeyCode.JoystickButton1);
         public static bool MutePressed => KeyDown(KeyCode.M);
@@ -68,7 +90,7 @@ namespace EcoBot
         static Keyboard Kb => Keyboard.current;
         static Gamepad Pad => Gamepad.current;
 
-        public static float Horizontal
+        static float RawHorizontal
         {
             get
             {
@@ -83,7 +105,7 @@ namespace EcoBot
             }
         }
 
-        public static float Vertical
+        static float RawVertical
         {
             get
             {
@@ -98,15 +120,15 @@ namespace EcoBot
             }
         }
 
-        public static bool JumpPressed =>
+        static bool RawJumpPressed =>
             (Kb != null && (Kb.spaceKey.wasPressedThisFrame || Kb.kKey.wasPressedThisFrame || Kb.zKey.wasPressedThisFrame)) ||
             (Pad != null && Pad.buttonSouth.wasPressedThisFrame);
 
-        public static bool JumpHeld =>
+        static bool RawJumpHeld =>
             (Kb != null && (Kb.spaceKey.isPressed || Kb.kKey.isPressed || Kb.zKey.isPressed)) ||
             (Pad != null && Pad.buttonSouth.isPressed);
 
-        public static bool RunHeld =>
+        static bool RawRunHeld =>
             (Kb != null && (Kb.leftShiftKey.isPressed || Kb.rightShiftKey.isPressed || Kb.jKey.isPressed || Kb.xKey.isPressed)) ||
             (Pad != null && (Pad.buttonWest.isPressed || Pad.rightTrigger.isPressed));
 
