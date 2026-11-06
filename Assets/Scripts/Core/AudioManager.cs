@@ -47,11 +47,24 @@ namespace EcoBot
 
         readonly Dictionary<Sfx, SfxClip> lookup = new Dictionary<Sfx, SfxClip>();
         Coroutine musicRoutine;
+        // Navegadores só liberam o som depois da primeira interação do jogador.
+        bool audioUnlocked = true;
+        float musicRetryTimer;
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+        // Definido em Assets/Plugins/WebGL/EcoBotAudio.jslib: libera o som no primeiro clique.
+        [System.Runtime.InteropServices.DllImport("__Internal")]
+        static extern void EcoBot_InstallAudioUnlock();
+#endif
 
         void Awake()
         {
             if (Instance != null && Instance != this) { Destroy(this); return; }
             Instance = this;
+#if UNITY_WEBGL && !UNITY_EDITOR
+            EcoBot_InstallAudioUnlock();
+#endif
+            audioUnlocked = Application.platform != RuntimePlatform.WebGLPlayer;
             foreach (var e in effects)
                 if (e != null && e.clip != null) lookup[e.id] = e;
         }
@@ -59,6 +72,25 @@ namespace EcoBot
         void Update()
         {
             if (GameInput.MutePressed) AudioListener.volume = AudioListener.volume > 0f ? 0f : 1f;
+            if (!audioUnlocked && GameInput.AnyPressed)
+            {
+                audioUnlocked = true;
+                StartCoroutine(RestartMusicAfterUnlock());
+            }
+            KeepMusicPlaying();
+        }
+
+        /// <summary>
+        /// No navegador, a música pedida antes do primeiro clique/tecla fica muda.
+        /// Logo depois da primeira interação (quando o som é liberado) ela recomeça.
+        /// </summary>
+        IEnumerator RestartMusicAfterUnlock()
+        {
+            yield return new WaitForSecondsRealtime(0.3f);
+            if (musicRoutine != null || musicSource.clip == null) yield break;
+            musicSource.Stop();
+            musicSource.volume = musicVolume;
+            musicSource.Play();
         }
 
         // ------------------------------------------------------------ API estática
@@ -114,9 +146,23 @@ namespace EcoBot
             musicSource.Stop();
             musicSource.clip = next;
             MusicChanged?.Invoke(next);
-            if (next == null) yield break;
+            if (next == null)
+            {
+                musicRoutine = null;
+                yield break;
+            }
+
+            // No navegador (WebGL) as músicas carregam em segundo plano: mandar tocar
+            // antes de terminar de carregar resulta em silêncio. Espera a música ficar pronta.
+            if (next.loadState != AudioDataLoadState.Loaded) next.LoadAudioData();
+            for (float wait = 0f; next.loadState != AudioDataLoadState.Loaded && wait < 20f; wait += Time.unscaledDeltaTime)
+            {
+                if (next.loadState == AudioDataLoadState.Failed) break;
+                yield return null;
+            }
 
             musicSource.loop = true;
+            musicSource.volume = 0f;
             musicSource.Play();
             for (float t = 0; t < musicFadeTime; t += Time.unscaledDeltaTime)
             {
@@ -124,6 +170,24 @@ namespace EcoBot
                 yield return null;
             }
             musicSource.volume = musicVolume;
+            musicRoutine = null;
+        }
+
+        /// <summary>
+        /// Rede de segurança: se há uma música escolhida, já carregada, mas que não está tocando
+        /// (por exemplo, o navegador bloqueou o som até o primeiro clique), toca de novo.
+        /// </summary>
+        void KeepMusicPlaying()
+        {
+            var clip = musicSource.clip;
+            if (musicRoutine != null || clip == null || musicSource.isPlaying) return;
+            musicRetryTimer -= Time.unscaledDeltaTime;
+            if (musicRetryTimer > 0f) return;
+            musicRetryTimer = 0.5f;
+            if (clip.loadState != AudioDataLoadState.Loaded) return;
+            musicSource.loop = true;
+            musicSource.volume = musicVolume;
+            musicSource.Play();
         }
     }
 }

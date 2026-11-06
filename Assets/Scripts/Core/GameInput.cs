@@ -86,6 +86,8 @@ namespace EcoBot
         public static bool CancelPressed => KeyDown(KeyCode.Escape, KeyCode.Backspace, KeyCode.JoystickButton1);
         public static bool MutePressed => KeyDown(KeyCode.M);
         public static bool ScreenshotPressed => KeyDown(KeyCode.F12);
+        /// <summary>Qualquer tecla, botão do mouse ou do gamepad apertado neste quadro.</summary>
+        public static bool AnyPressed => Input.anyKeyDown;
 #else
         static Keyboard Kb => Keyboard.current;
         static Gamepad Pad => Gamepad.current;
@@ -142,6 +144,10 @@ namespace EcoBot
 
         public static bool MutePressed => Kb != null && Kb.mKey.wasPressedThisFrame;
         public static bool ScreenshotPressed => Kb != null && Kb.f12Key.wasPressedThisFrame;
+        public static bool AnyPressed =>
+            (Kb != null && Kb.anyKey.wasPressedThisFrame) ||
+            (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame) ||
+            (Pad != null && Pad.buttonSouth.wasPressedThisFrame);
 #endif
     }
 }
